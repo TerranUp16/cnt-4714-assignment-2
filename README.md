@@ -69,3 +69,6 @@ This creates `3` stations, `0`, `1`, and `2`. This assigns package group workloa
 | `0` | 2 |
 | `1` | 3 |
 | `2` | 4 |
+
+# Sample Output
+Please view [`output.txt`](https://github.com/TerranUp16/cnt-4714-assignment-2/blob/master/output.txt) for a sample of what will be output to `stdout`. Note this output is based on a run performed with [`config.txt`](https://github.com/TerranUp16/cnt-4714-assignment-2/blob/master/config.txt).
