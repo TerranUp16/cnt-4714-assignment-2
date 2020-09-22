@@ -6,6 +6,7 @@
 
   Class: Conveyor
 */
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Simulates a conveyor belt which can move packages from a Station. Can only move packages from one Station at a time
@@ -16,6 +17,9 @@ public class Conveyor {
 
   // Reference to the Station which has a lock on this Conveyor
   Station inUseBy;
+
+  // Lock to use during setStation method
+  private final ReentrantLock lock = new ReentrantLock();
 
   /**
    * Initialize a new Conveyor which starts as idle
@@ -46,12 +50,20 @@ public class Conveyor {
    * @return        true if setting this Conveyor to use the provided station worked, false if it did not
    */
   public boolean setStation(Station station) {
-    if (inUse()) {
-      return false;
-    } else {
-      inUseBy = station;
-      return true;
-    }
+    // Acquire lock for critical section of code
+    lock.lock();
+
+    // Ensure lock is able to unlock no matter what happens
+    try {
+      if (inUse()) {
+        return false;
+      } else {
+        inUseBy = station;
+        return true;
+      }
+     } finally {
+       lock.unlock();
+     }
   }
 
   /**
